@@ -1,23 +1,38 @@
 // gameboard object using module pattern
+// 0: no mark in a square
+// 1: Player One's mark
+// 2: Player Two's mark
 const gameBoard = (() => {
-    let _board = [
-        ["X", "X", "X"],
-        ["X", "X", "X"],
-        ["X", "X", "X"],
-    ];
+    const _rows = 3;
+    const _cols = 3;
+    const _board = [];
+    let _cellVal = 0;
 
-    const _cells = document.querySelectorAll(".cell");
+    // create 2d array to represent state of game board
+    for (let i = 0; i < _rows; i++) {
+        _board[i] = [];
+        for (let j = 0; j < _cols; j++) {
+            _board[i].push(_cellVal); 
+        }
+    }
 
-    const renderBoard = () => {
-        const flatBoard = _board.flat();
-        
-        [..._cells].map((cell, boardCell) => {
-            cell.innerText = flatBoard[boardCell];
-        });
+    // to get board state for UI to render
+    const getBoard = () => _board;
+
+    const addMark = (player) => {
+        _cellVal = player;
     };
 
-    return {renderBoard};
+    const getValue = () => _cellVal;
+
+    return {
+        //renderBoard,
+        getBoard,
+        addMark,
+        getValue,
+    };
 })();
+
 
 // object to control flow of the game using module pattern
 const displayController = (() => {
@@ -28,3 +43,5 @@ const displayController = (() => {
 const playerFactory = name => {
 
 }
+
+
