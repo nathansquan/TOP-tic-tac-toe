@@ -28,7 +28,7 @@ const gameBoard = (() => {
         }
     };
 
-    const getValue = () => _cellVal;
+    const getValue = (row, col) => _board[row][col];
 
     return {
         getBoard,
