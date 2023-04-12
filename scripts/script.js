@@ -19,16 +19,19 @@ const gameBoard = (() => {
     // to get board state for UI to render
     const getBoard = () => _board;
 
-    const addMark = (player) => {
-        _cellVal = player;
+    // assign _cellVal with the player's value, 1 or 2
+    const _addMark = (player) => {
+        if (_cellVal === 0) {
+            _cellVal = player;
+        } else {
+            alert("There is already a mark made on this square!"); 
+        }
     };
 
     const getValue = () => _cellVal;
 
     return {
-        //renderBoard,
         getBoard,
-        addMark,
         getValue,
     };
 })();
