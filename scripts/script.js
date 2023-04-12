@@ -21,8 +21,8 @@ const gameBoard = (() => {
 
     // assign _cellVal with the player's value, 1 or 2
     const addMark = (row, col, player) => {
-        if (_board[row][col] === 0) {
-            _board[row][col] = player;
+        if (getValue(row, col) === 0) {
+            getValue(row, col) = player;
         } else {
             alert("There is already a mark made on this square!"); 
         }
