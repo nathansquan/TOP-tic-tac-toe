@@ -1,3 +1,10 @@
+// player object factory function
+const playerFactory = name => {
+    return {
+        name,
+    };
+}
+
 // gameboard object using module pattern
 // 0: no mark in a square
 // 1: Player One's mark
@@ -41,13 +48,11 @@ const gameBoard = (() => {
 
 // object to control flow of the game using module pattern
 const displayController = (() => {
+    const playerOne = playerFactory("player1");
+    const playerTwo = playerFactory("player2");
 
 })();
 
-// player object factory function
-const playerFactory = name => {
-
-}
 
 
 
