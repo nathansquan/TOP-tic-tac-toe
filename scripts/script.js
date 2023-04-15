@@ -19,16 +19,17 @@ const gameBoard = (() => {
     // to get board state for UI to render
     const getBoard = () => _board;
 
+    const getValue = (row, col) => _board[row][col];
+
     // assign _cellVal with the player's value, 1 or 2
     const addMark = (row, col, player) => {
         if (getValue(row, col) === 0) {
-            getValue(row, col) = player;
+            //getValue(row, col) = player;
+            _board[row][col] = player;
         } else {
             alert("There is already a mark made on this square!"); 
         }
     };
-
-    const getValue = (row, col) => _board[row][col];
 
     return {
         getBoard,
@@ -47,5 +48,6 @@ const displayController = (() => {
 const playerFactory = name => {
 
 }
+
 
 
