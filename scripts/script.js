@@ -51,6 +51,17 @@ const displayController = (() => {
     const playerOne = playerFactory("player1");
     const playerTwo = playerFactory("player2");
 
+    //initialize player turn and create method to switch player turn
+    const players = [playerOne, playerTwo];
+    let activePlayer = players[0];
+
+    const switchPlayerTurn = () => {
+        activePlayer = activePlayer === players[0] ? players[1] : players[0];
+    };
+
+    // get the active player
+    const getActivePlayer = () => activePlayer;
+
 })();
 
 
