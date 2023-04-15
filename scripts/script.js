@@ -1,7 +1,8 @@
 // player object factory function
-const playerFactory = name => {
+const playerFactory = (name, playerVal) => {
     return {
         name,
+        playerVal,
     };
 }
 
@@ -29,10 +30,10 @@ const gameBoard = (() => {
     const getValue = (row, col) => _board[row][col];
 
     // assign _cellVal with the player's value, 1 or 2
-    const addMark = (row, col, player) => {
+    const addMark = (row, col, playerVal) => {
         if (getValue(row, col) === 0) {
             //getValue(row, col) = player;
-            _board[row][col] = player;
+            _board[row][col] = playerVal;
         } else {
             alert("There is already a mark made on this square!"); 
         }
@@ -48,19 +49,39 @@ const gameBoard = (() => {
 
 // object to control flow of the game using module pattern
 const displayController = (() => {
-    const playerOne = playerFactory("player1");
-    const playerTwo = playerFactory("player2");
+    const board = gameBoard;
+    const playerOne = playerFactory("player1", 1);
+    const playerTwo = playerFactory("player2", 2);
 
     //initialize player turn and create method to switch player turn
     const players = [playerOne, playerTwo];
     let activePlayer = players[0];
 
-    const switchPlayerTurn = () => {
+    const _switchPlayerTurn = () => {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
     };
 
     // get the active player
-    const getActivePlayer = () => activePlayer;
+    const _getActivePlayer = () => activePlayer;
+
+    const _printNewRound = () => {
+        console.log(board.getBoard());
+        console.log(`${_getActivePlayer().name}'s turn.`);
+    };
+
+    const playRound = (row, col) => {
+        console.log(`${_getActivePlayer().name} marked row ${row}, column ${col}.`);
+        board.addMark(row, col, _getActivePlayer().playerVal);
+        
+        // check win condition
+
+        _switchPlayerTurn();
+        _printNewRound();
+    };
+
+    return {
+        playRound,
+    };
 
 })();
 
