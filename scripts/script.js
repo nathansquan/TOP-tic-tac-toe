@@ -79,8 +79,38 @@ const displayController = (() => {
         _printNewRound();
     };
 
+    // tie logic to DOM
+    const playerTurnDiv = document.querySelector('.turn');
+    const boardDiv = document.querySelector('.board');
+    const cells = document.querySelectorAll('.cell');
+
+    const updateScreen = () => {
+        // get newest version of board and player turn
+        const board = gameBoard;
+        const boardVals = board.getBoard();
+        const activePlayer = _getActivePlayer();
+
+        // display player's turn
+        playerTurnDiv.innerText = `${activePlayer.name}'s turn...`;
+
+        // render board squares
+        boardVals.forEach((row, rowIndex) => {
+            row.forEach((cell, cellIndex) => {
+                const cellBtn = document.createElement("button");
+                cellBtn.classList.add("btn");
+                cellBtn.classList.add("btn-secondary");
+                cellBtn.classList.add("btn-lg");
+                cellBtn.dataset.cellRow = rowIndex;
+                cellBtn.dataset.cellCol = cellIndex;
+                cellBtn.innerText = board.getValue(rowIndex, cellIndex);
+                boardDiv.appendChild(cellBtn);
+            });
+        });
+    };
+
     return {
         playRound,
+        updateScreen,
     };
 
 })();
