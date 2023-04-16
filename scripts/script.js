@@ -69,7 +69,7 @@ const displayController = (() => {
         console.log(`${_getActivePlayer().name}'s turn.`);
     };
 
-    const playRound = (row, col) => {
+    const _playRound = (row, col) => {
         console.log(`${_getActivePlayer().name} marked row ${row}, column ${col}.`);
         board.addMark(row, col, _getActivePlayer().playerVal);
         
@@ -84,6 +84,9 @@ const displayController = (() => {
     const boardDiv = document.querySelector('.board');
 
     const updateScreen = () => {
+        // clear the board
+        boardDiv.textContent = "";
+
         // get newest version of board and player turn
         const board = gameBoard;
         const boardVals = board.getBoard();
@@ -108,13 +111,25 @@ const displayController = (() => {
         });
     };
 
+    function _clickHandlerBoard(e) {
+        if (e.target.classList.contains("btn")) {
+            const selectedCellRow = e.target.dataset.cellRow;
+            const selectedCellCol = e.target.dataset.cellCol;
+
+            _playRound(selectedCellRow, selectedCellCol);
+            updateScreen();
+        }
+    };
+
+    boardDiv.addEventListener("click", _clickHandlerBoard);
+
     return {
-        playRound,
         updateScreen,
     };
 
 })();
 
-
+// Initial render
+displayController.updateScreen();
 
 
