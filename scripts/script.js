@@ -105,7 +105,15 @@ const displayController = (() => {
                 cellBtn.classList.add("rounded-0");
                 cellBtn.dataset.cellRow = rowIndex;
                 cellBtn.dataset.cellCol = cellIndex;
-                cellBtn.innerText = board.getValue(rowIndex, cellIndex);
+
+                if (board.getValue(rowIndex, cellIndex) === 1) {
+                    cellBtn.innerText = "X"; 
+                } else if (board.getValue(rowIndex, cellIndex) === 2) {
+                    cellBtn.innerText = "O"; 
+                } else {
+                    cellBtn.innerText = "";
+                }
+
                 boardDiv.appendChild(cellBtn);
             });
         });
