@@ -82,7 +82,6 @@ const displayController = (() => {
     // tie logic to DOM
     const playerTurnDiv = document.querySelector('.turn');
     const boardDiv = document.querySelector('.board');
-    const cells = document.querySelectorAll('.cell');
 
     const updateScreen = () => {
         // get newest version of board and player turn
@@ -100,6 +99,7 @@ const displayController = (() => {
                 cellBtn.classList.add("btn");
                 cellBtn.classList.add("btn-secondary");
                 cellBtn.classList.add("btn-lg");
+                cellBtn.classList.add("rounded-0");
                 cellBtn.dataset.cellRow = rowIndex;
                 cellBtn.dataset.cellCol = cellIndex;
                 cellBtn.innerText = board.getValue(rowIndex, cellIndex);
