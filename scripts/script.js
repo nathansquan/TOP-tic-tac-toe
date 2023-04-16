@@ -74,9 +74,27 @@ const displayController = (() => {
         board.addMark(row, col, _getActivePlayer().playerVal);
         
         // check win condition
+        if (_checkHorizontalWin()) {
+            return alert(`${_getActivePlayer().name} wins!!!`);
+        }
 
         _switchPlayerTurn();
         _printNewRound();
+    };
+
+    const _allEqual = arr => arr.every(val => val === arr[0]);
+
+    // check win conditions
+    const _checkHorizontalWin = () => {
+        const boardVals = gameBoard.getBoard();
+        let flag = false
+        // check horizontal 3-in-a-row
+        boardVals.forEach(row => {
+            if (row[0] !== 0 && _allEqual(row)) {
+                flag = true;
+            }
+        });
+        return flag;
     };
 
     // tie logic to DOM
