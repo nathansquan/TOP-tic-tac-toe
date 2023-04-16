@@ -103,6 +103,7 @@ const displayController = (() => {
                 cellBtn.classList.add("btn-secondary");
                 cellBtn.classList.add("btn-lg");
                 cellBtn.classList.add("rounded-0");
+                cellBtn.classList.add("fs-1");
                 cellBtn.dataset.cellRow = rowIndex;
                 cellBtn.dataset.cellCol = cellIndex;
 
@@ -134,7 +135,6 @@ const displayController = (() => {
     return {
         updateScreen,
     };
-
 })();
 
 // Initial render
