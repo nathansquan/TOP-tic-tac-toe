@@ -240,21 +240,6 @@ const displayController = (() => {
     form.addEventListener("submit", _submitHandlerNames);
     boardDiv.addEventListener("click", _clickHandlerBoard);
 
-    const form = document.querySelector("form");
-    
-    function _submitHandlerNames(e) {
-        e.preventDefault();
-        const data = new FormData(form); 
-        console.log(data);
-        playerOne.name = data.get("player-1");
-        playerTwo.name = data.get("player-2");
-        console.log(playerOne.name);
-        console.log(playerTwo.name);
-        updateScreen();
-    }
-    
-    form.addEventListener("submit", _submitHandlerNames);
-
     return {
         updateScreen,
     };
