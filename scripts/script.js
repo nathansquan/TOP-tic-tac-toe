@@ -224,7 +224,6 @@ const displayController = (() => {
     };
 
     function _clickHandlerRestart(e) {
-        gameBoard();
     }
 
     form.addEventListener("submit", _submitHandlerNames);
