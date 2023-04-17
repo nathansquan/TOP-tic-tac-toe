@@ -50,8 +50,8 @@ const gameBoard = (() => {
 // object to control flow of the game using module pattern
 const displayController = (() => {
     const board = gameBoard;
-    const playerOne = playerFactory("player1", 1);
-    const playerTwo = playerFactory("player2", 2);
+    let playerOne = playerFactory("Player 1", 1);
+    let playerTwo = playerFactory("Player 2", 2);
 
     //initialize player turn and create method to switch player turn
     const players = [playerOne, playerTwo];
@@ -209,10 +209,26 @@ const displayController = (() => {
 
     boardDiv.addEventListener("click", _clickHandlerBoard);
 
+    const form = document.querySelector("form");
+    
+    function _submitHandlerNames(e) {
+        e.preventDefault();
+        const data = new FormData(form); 
+        console.log(data);
+        playerOne.name = data.get("player-1");
+        playerTwo.name = data.get("player-2");
+        console.log(playerOne.name);
+        console.log(playerTwo.name);
+        updateScreen();
+    }
+    
+    form.addEventListener("submit", _submitHandlerNames);
+
     return {
         updateScreen,
     };
 })();
+
 
 // Initial render
 displayController.updateScreen();
