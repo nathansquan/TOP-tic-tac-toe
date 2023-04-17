@@ -74,7 +74,7 @@ const displayController = (() => {
         board.addMark(row, col, _getActivePlayer().playerVal);
         
         // check win condition
-        if (_checkHorizontalWin() || _checkVerticalWin()) {
+        if (_checkHorizontalWin() || _checkVerticalWin() || _checkMainDiagonalWin()) {
             return alert(`${_getActivePlayer().name} wins!!!`);
         }
 
@@ -90,7 +90,7 @@ const displayController = (() => {
     // check win conditions
     const _checkHorizontalWin = () => {
         const boardVals = gameBoard.getBoard();
-        let flag = false
+        let flag = false;
         // check horizontal 3-in-a-row
         boardVals.forEach(row => {
             if (row[0] !== 0 && _allEqual(row)) {
@@ -102,7 +102,7 @@ const displayController = (() => {
 
     const _checkVerticalWin = () => {
         const boardValsT = _transpose(gameBoard.getBoard());
-        let flag = false
+        let flag = false;
         // check horizontal 3-in-a-row
         boardValsT.forEach(row => {
             if (row[0] !== 0 && _allEqual(row)) {
@@ -111,6 +111,26 @@ const displayController = (() => {
         });
         return flag;
     };
+
+    const _checkMainDiagonalWin = () => {
+        const boardVals = gameBoard.getBoard();
+        let flag = false;
+        let diag = [];
+
+        for (let row = 0; row < boardVals.length; row++) {
+            for (let col = 0; col < boardVals[row].length; col++) {
+                if (row === col) {
+                    diag.push(boardVals[row][col]);
+                } 
+            } 
+        }
+        
+        if (diag[0] !== 0 && _allEqual(diag)) {
+            flag = true;
+        }
+
+        return flag;
+    }
 
     // tie logic to DOM
     const playerTurnDiv = document.querySelector('.turn');
@@ -167,7 +187,6 @@ const displayController = (() => {
 
     return {
         updateScreen,
-        _transpose,
     };
 })();
 
