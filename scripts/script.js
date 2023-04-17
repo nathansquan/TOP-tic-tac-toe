@@ -16,13 +16,15 @@ const gameBoard = (() => {
     const _board = [];
     let _cellVal = 0;
 
-    // create 2d array to represent state of game board
-    for (let i = 0; i < _rows; i++) {
-        _board[i] = [];
-        for (let j = 0; j < _cols; j++) {
-            _board[i].push(_cellVal); 
+    const resetBoard = (nRows, nCols, cellVal, board) => {
+        // create 2d array to represent state of game board
+        for (let i = 0; i < nRows; i++) {
+            board[i] = [];
+            for (let j = 0; j < nCols; j++) {
+                board[i].push(cellVal); 
+            }
         }
-    }
+    };
 
     // to get board state for UI to render
     const getBoard = () => _board;
@@ -39,7 +41,21 @@ const gameBoard = (() => {
         }
     };
 
+    // event handler
+    const restartBtn = document.querySelector(".restart > .btn");
+
+    function _clickHandlerRestart() {
+        resetBoard(_rows, _cols, _cellVal, _board);
+        displayController.updateScreen();
+    }
+
+    restartBtn.addEventListener("click", _clickHandlerRestart);
+
+    // initialize board
+    resetBoard(_rows, _cols, _cellVal, _board);
+
     return {
+        resetBoard,
         getBoard,
         getValue,
         addMark,
@@ -198,9 +214,7 @@ const displayController = (() => {
     };
 
     // event handlers
-
     const form = document.querySelector("form");
-    const restartBtn = document.querySelector(".restart > .btn");
     
     function _submitHandlerNames(e) {
         e.preventDefault();
@@ -223,12 +237,8 @@ const displayController = (() => {
         }
     };
 
-    function _clickHandlerRestart(e) {
-    }
-
     form.addEventListener("submit", _submitHandlerNames);
     boardDiv.addEventListener("click", _clickHandlerBoard);
-    restartBtn.addEventListener("click", _clickHandlerRestart);
 
     return {
         updateScreen,
@@ -238,5 +248,4 @@ const displayController = (() => {
 
 // Initial render
 displayController.updateScreen();
-
 
