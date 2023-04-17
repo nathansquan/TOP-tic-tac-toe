@@ -1,6 +1,7 @@
 .player-name,
 .turn,
-.board {
+.board,
+.restart {
     padding-top: 50px;
 }
 

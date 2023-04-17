@@ -197,19 +197,10 @@ const displayController = (() => {
         });
     };
 
-    function _clickHandlerBoard(e) {
-        if (e.target.classList.contains("btn")) {
-            const selectedCellRow = e.target.dataset.cellRow;
-            const selectedCellCol = e.target.dataset.cellCol;
-
-            _playRound(selectedCellRow, selectedCellCol);
-            updateScreen();
-        }
-    };
-
-    boardDiv.addEventListener("click", _clickHandlerBoard);
+    // event handlers
 
     const form = document.querySelector("form");
+    const restartBtn = document.querySelector(".restart > .btn");
     
     function _submitHandlerNames(e) {
         e.preventDefault();
@@ -222,7 +213,23 @@ const displayController = (() => {
         updateScreen();
     }
     
+    function _clickHandlerBoard(e) {
+        if (e.target.classList.contains("btn")) {
+            const selectedCellRow = e.target.dataset.cellRow;
+            const selectedCellCol = e.target.dataset.cellCol;
+
+            _playRound(selectedCellRow, selectedCellCol);
+            updateScreen();
+        }
+    };
+
+    function _clickHandlerRestart(e) {
+        gameBoard();
+    }
+
     form.addEventListener("submit", _submitHandlerNames);
+    boardDiv.addEventListener("click", _clickHandlerBoard);
+    restartBtn.addEventListener("click", _clickHandlerRestart);
 
     return {
         updateScreen,
