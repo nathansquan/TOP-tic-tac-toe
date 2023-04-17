@@ -1,12 +1,20 @@
-.row {
-    height: 100%;
-    aspect-ratio: 3 / 1;
+.player-name,
+.turn,
+.board {
+    padding-top: 50px;
+}
+
+.player,
+.submit {
+    padding-top: 10px;
 }
 
 .board {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 150px);
     gap: 5px;
+    align-content: center;
+    justify-content: center;
 }
 
 .board button {
