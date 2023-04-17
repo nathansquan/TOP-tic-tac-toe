@@ -74,7 +74,7 @@ const displayController = (() => {
         board.addMark(row, col, _getActivePlayer().playerVal);
         
         // check win condition
-        if (_checkHorizontalWin()) {
+        if (_checkHorizontalWin() || _checkVerticalWin()) {
             return alert(`${_getActivePlayer().name} wins!!!`);
         }
 
@@ -83,6 +83,9 @@ const displayController = (() => {
     };
 
     const _allEqual = arr => arr.every(val => val === arr[0]);
+    const _transpose = matrix => {
+        return matrix[0].map((col, i) => matrix.map(row => row[i]));
+    }
 
     // check win conditions
     const _checkHorizontalWin = () => {
@@ -90,6 +93,18 @@ const displayController = (() => {
         let flag = false
         // check horizontal 3-in-a-row
         boardVals.forEach(row => {
+            if (row[0] !== 0 && _allEqual(row)) {
+                flag = true;
+            }
+        });
+        return flag;
+    };
+
+    const _checkVerticalWin = () => {
+        const boardValsT = _transpose(gameBoard.getBoard());
+        let flag = false
+        // check horizontal 3-in-a-row
+        boardValsT.forEach(row => {
             if (row[0] !== 0 && _allEqual(row)) {
                 flag = true;
             }
@@ -152,6 +167,7 @@ const displayController = (() => {
 
     return {
         updateScreen,
+        _transpose,
     };
 })();
 
