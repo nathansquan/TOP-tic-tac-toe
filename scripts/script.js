@@ -74,7 +74,10 @@ const displayController = (() => {
         board.addMark(row, col, _getActivePlayer().playerVal);
         
         // check win condition
-        if (_checkHorizontalWin() || _checkVerticalWin() || _checkMainDiagonalWin()) {
+        if (_checkHorizontalWin(board.getBoard()) || 
+            _checkVerticalWin(board.getBoard()) || 
+            _checkMainDiagonalWin(board.getBoard()) ||
+            _checkOffDiagonalWin(board.getBoard())) {
             return alert(`${_getActivePlayer().name} wins!!!`);
         }
 
@@ -88,11 +91,11 @@ const displayController = (() => {
     }
 
     // check win conditions
-    const _checkHorizontalWin = () => {
-        const boardVals = gameBoard.getBoard();
+    const _checkHorizontalWin = (board) => {
+        //const boardVals = gameBoard.getBoard();
         let flag = false;
         // check horizontal 3-in-a-row
-        boardVals.forEach(row => {
+        board.forEach(row => {
             if (row[0] !== 0 && _allEqual(row)) {
                 flag = true;
             }
@@ -100,28 +103,49 @@ const displayController = (() => {
         return flag;
     };
 
-    const _checkVerticalWin = () => {
-        const boardValsT = _transpose(gameBoard.getBoard());
-        let flag = false;
-        // check horizontal 3-in-a-row
-        boardValsT.forEach(row => {
-            if (row[0] !== 0 && _allEqual(row)) {
-                flag = true;
-            }
-        });
-        return flag;
+    const _checkVerticalWin = (board) => {
+        const boardT = _transpose(board);
+        return _checkHorizontalWin(boardT);
     };
 
-    const _checkMainDiagonalWin = () => {
-        const boardVals = gameBoard.getBoard();
+    const _checkMainDiagonalWin = (board) => {
         let flag = false;
         let diag = [];
 
-        for (let row = 0; row < boardVals.length; row++) {
-            for (let col = 0; col < boardVals[row].length; col++) {
+        for (let row = 0; row < board.length; row++) {
+            for (let col = 0; col < board[row].length; col++) {
                 if (row === col) {
-                    diag.push(boardVals[row][col]);
+                    diag.push(board[row][col]);
                 } 
+            } 
+        }
+        
+        if (diag[0] !== 0 && _allEqual(diag)) {
+            flag = true;
+        }
+
+        return flag;
+    }
+
+    const _checkOffDiagonalWin = (board) => {
+        let flag = false;
+        let diag = [];
+        const nRows = board.length;
+        const nCols = board[0].length;
+
+        // grab values from off diagonal
+        for (let row = 0; row < nRows; row++) {
+            for (let col = 0; col < nCols; col++) {
+                let nColsFromLast = nCols - 1 - col;
+                let nRowsFromFirst = row;
+
+                if (row === 0 && col === nCols - 1) {
+                    diag.push(board[row][col]);
+                } else if (row === nRows - 1 && col === 0) {
+                    diag.push(board[row][col]);
+                } else if (nRowsFromFirst === nColsFromLast) {
+                    diag.push(board[row][col]);
+                }
             } 
         }
         
